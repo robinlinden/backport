@@ -5,6 +5,16 @@
 #ifndef BACKPORT_SOURCE_LOCATION_HPP_
 #define BACKPORT_SOURCE_LOCATION_HPP_
 
+#if defined(_MSC_VER) && _MSC_VER < 1929
+#error "Unsupported compiler. MSVC >= 16.10 required."
+#elif defined(__clang__)
+#if __clang_major__ < 9
+#error "Unsupported compiler. Clang >= 9.0 required."
+#endif // __clang_major__ < 9
+#elif defined(__GNUC__) && (__GNUC__ == 4 && __GNUC_MINOR__ < 9)
+#error "Unsupported compiler. GCC >= 4.9 required."
+#endif // defined(__GNUC__) && (__GNUC__ == 4 && __GNUC_MINOR__ < 9)
+
 #include <cstdint>
 
 namespace backport {
